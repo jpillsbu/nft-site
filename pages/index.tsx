@@ -1,11 +1,7 @@
-import { Inter } from 'next/font/google'
 import Image from 'next/image';
 import { useState } from 'react';
 import styled from 'styled-components';
 import nftImage from "../public/nftImage.png"
-
-
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const [inProgress, setInProgress] = useState(false);
