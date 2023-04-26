@@ -4,8 +4,9 @@ on:
       - main
 
 permissions:
-  contents: write
+  contents: read
   pull-requests: read
+  packages: write
 
 env:
   REGISTRY: ghcr.io
@@ -14,9 +15,6 @@ env:
 jobs:
   release-on-push:
     runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
