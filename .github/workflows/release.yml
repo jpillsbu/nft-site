@@ -6,7 +6,7 @@ on:
 permissions:
   contents: read
   pull-requests: read
-  # packages: write
+  packages: write
 
 env:
   REGISTRY: ghcr.io
@@ -18,13 +18,13 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: Tag & Release
-        id: release_step
-        uses: rymndhng/release-on-push-action@v0.28.0
-        with:
-          bump_version_scheme: patch
-          tag_prefix: "v"
-          use_github_release_notes: true
+      # - name: Tag & Release
+      #   id: release_step
+      #   uses: rymndhng/release-on-push-action@v0.28.0
+      #   with:
+      #     bump_version_scheme: patch
+      #     tag_prefix: "v"
+      #     use_github_release_notes: true
 
       - name: Checkout repository
         uses: actions/checkout@v3
