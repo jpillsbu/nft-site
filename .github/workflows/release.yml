@@ -29,8 +29,12 @@ jobs:
       contents: read
       packages: write
     steps:
-      - id: get_version
-        uses: battila7/get-version-action@v2
+      - id: rel
+        uses: pozetroninc/github-action-get-latest-release@master
+        with:
+          owner: jpillsbu
+          repo: nft-site
+          excludes: prerelease, draft
 
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -47,4 +51,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ steps.get_version.outputs.version }}
+          repository: ${{ github.repository }}
+          tags: latest, ${{ steps.rel.outputs.release }}
