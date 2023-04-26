@@ -17,24 +17,13 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: rymndhng/release-on-push-action@master
+      - name: Tag & Release
+        id: release_step
+        uses: rymndhng/release-on-push-action@0.27.0
         with:
           bump_version_scheme: patch
           tag_prefix: "v"
-
-  build-and-push-image:
-    needs: release-on-push
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - id: rel
-        uses: pozetroninc/github-action-get-latest-release@master
-        with:
-          owner: jpillsbu
-          repo: nft-site
-          excludes: prerelease, draft
+          use_github_release_notes: true
 
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -46,15 +35,8 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
-        with:
-          context: .
-          push: true
-          tags: latest, ${{ steps.rel.outputs.release }}
+      - name: Build & Push Container
+        run: |
+          docker build -t "$REGISTRY"/"$IMAGE_NAME":latest \
+            -t "$REGISTRY"/"$IMAGE_NAME":${{ steps.release_step.outputs.tag_name }} .
+          docker push -a "$REGISTRY"/"$IMAGE_NAME"
