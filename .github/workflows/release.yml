@@ -1,3 +1,4 @@
+---
 on:
   push:
     branches:
@@ -17,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      DOCKER_IMAGE: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
     steps:
       # - name: Tag & Release
       #   id: release_step
@@ -41,4 +43,4 @@ jobs:
       #   with:
       #     context: .
       #     push: true
-      #     tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:lastest, ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.release_step.outputs.tag_name }}
+      #     tags: ${{ env.DOCKER_IMAGE }}:lastest, {{ env.DOCKER_IMAGE }}:${{ steps.release_step.outputs.tag_name }}
