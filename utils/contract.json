@@ -283,7 +283,7 @@
 				"type": "bytes"
 			}
 		],
-		"name": "safeTransferFromWithData",
+		"name": "safeTransferFromWith",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
