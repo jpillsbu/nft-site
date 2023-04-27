@@ -2,7 +2,7 @@
 on:
   push:
     branches:
-      - fix-release.yml
+      - main
 
 permissions:
   contents: write
