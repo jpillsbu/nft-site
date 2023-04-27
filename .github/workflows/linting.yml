@@ -11,7 +11,7 @@ name: Lint Code Base
 #############################
 on:
   pull_request:
-    branches: [master, main]
+    branches: [main]
 
 ###############
 # Set the Job #
@@ -54,5 +54,4 @@ jobs:
           VALIDATE_ALL_CODEBASE: true
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FILTER_REGEX_EXCLUDE: *.json
-
+          FILTER_REGEX_EXCLUDE: utils/*
