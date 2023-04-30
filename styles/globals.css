@@ -1,3 +1,4 @@
+/* stylelint-disable unit-allowed-list */
 /* stylelint-disable */
 @tailwind base;
 @tailwind components;
@@ -23,4 +24,22 @@ body {
   background: linear-gradient(to bottom,
       transparent,
       rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+}
+
+.link {
+  padding: 15px 30px;
+  font-weight: bold;
+  background-color: white;
+  border-radius: 12px;
+  color: black;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.25s all ease-in-out;
+}
+
+.link:hover {
+  color: #39ff14;
+  background-color: black;
 }
