@@ -1,6 +1,7 @@
 import { ethers } from "ethers";
 import { Button, InfoContainer } from "@/styles/globalStyles";
-import abi from "../utils/contract.json";
+import abi721 from "../utils/721contract.json";
+import abi1155 from "../utils/1155contract.json";
 
 declare var window: any
 
@@ -8,7 +9,9 @@ const ConnectWallet = (props: {
     setAccount: any,
     setContract: any,
     setSupply: any,
-    address: any
+    address: any,
+    contractType: any,
+    setMaxSupply: any
 }) => {
     const login = async () => {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
@@ -23,8 +26,17 @@ const ConnectWallet = (props: {
         const address = props.address;
         const provider = new ethers.BrowserProvider(window.ethereum);
         const signer = await provider.getSigner();
-        const contract = new ethers.Contract(address, abi, signer);
-        const totalSupply = await contract.totalSupply()
+        let contract: any;
+        let totalSupply: any;
+        if (props.contractType === "ERC721") {
+            contract = new ethers.Contract(address, abi721, signer);
+            totalSupply = await contract.totalSupply()
+        } else {
+            contract = new ethers.Contract(address, abi1155, signer);
+            totalSupply = await contract.totalSupply(0)
+        }
+        const maxSupply = await contract.maxSupply()
+        props.setMaxSupply(maxSupply.toString())
         props.setAccount(account);
         props.setContract(contract)
         props.setSupply(Number(totalSupply))

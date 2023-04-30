@@ -1,8 +1,8 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-const CompletedMinting = (props: { tokenID: any, address: any }) => {
-    const url = `https://testnets.opensea.io/assets/goerli/${props.address}/${props.tokenID - 1}`
+const CompletedMinting = (props: { address: any }) => {
+    const url = `https://testnets.opensea.io/assets/goerli/${props.address}`
     return (
         <CompletedContainer>
             <div>All set! Your NFT has been minted.</div>
